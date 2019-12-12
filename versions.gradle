@@ -32,4 +32,5 @@ ext {
     rulesVersion = "1.0.1"
     timberVersion = "4.7.1"
     truthVersion = "0.44"
+    koinVersion = "2.0.1"
 }
