@@ -3,7 +3,7 @@ package net.drusantia.raidr.data.network.model.character
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class Character(
+data class PlayerCharacter(
     val name: String,
     val race: String,
     val gender: String,

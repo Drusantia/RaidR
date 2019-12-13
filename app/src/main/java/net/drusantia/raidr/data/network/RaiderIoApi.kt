@@ -1,15 +1,16 @@
 package net.drusantia.raidr.data.network
 
 import net.drusantia.raidr.data.network.model.character.*
+import retrofit2.Response
 import retrofit2.http.*
 
 interface RaiderIoCharacterApi {
     @GET("characters/profile")
-    suspend fun getProfile(
+    suspend fun getProfileAsync(
         @Query("region") region: String? = Region.EU.name,
         @Query("realm") realm: String? = "Ragnaros",
         @Query("name") name: String? = "Fenrohas",
-        @Query("fields") fields: String? = Fields.ALL.getUrlParams())
+        @Query("fields") fields: String? = Fields.ALL.getUrlParams()): PlayerCharacter
 }
 
 interface RaiderIoGuildApi {}
