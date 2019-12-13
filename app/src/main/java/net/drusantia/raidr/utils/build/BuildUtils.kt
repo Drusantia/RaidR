@@ -1,9 +1,9 @@
 package net.drusantia.raidr.utils.build
 
-import android.os.Build
+import net.drusantia.raidr.BuildConfig
 
 inline fun onDebug(body: () -> Unit) {
-    if (Build.TYPE.equals("debug", ignoreCase = true)) {
+    if (BuildConfig.DEBUG) {
         body()
     }
 }

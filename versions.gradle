@@ -33,4 +33,6 @@ ext {
     timberVersion = "4.7.1"
     truthVersion = "0.44"
     koinVersion = "2.0.1"
+    retrofitVersion = "2.7.0"
+    gsonVersion = "2.8.6"
 }

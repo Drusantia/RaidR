@@ -30,6 +30,10 @@ android {
         }
     }
 
+    buildTypes.all { buildType ->
+        buildConfigField "String", "API_BASE_URL", "\"https://raider.io/api/v1/\""
+    }
+
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -51,6 +55,9 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "androidx.annotation:annotation:$androidXAnnotations"
     implementation "com.jakewharton.timber:timber:$timberVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
 
     // Architecture Components
     implementation "androidx.room:room-runtime:$roomVersion"
