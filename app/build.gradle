@@ -55,6 +55,7 @@ dependencies {
     implementation "androidx.annotation:annotation:$androidXAnnotations"
     // -> Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     // -> Material / Views / UI Elements
     implementation "com.google.android.material:material:$materialVersion"
