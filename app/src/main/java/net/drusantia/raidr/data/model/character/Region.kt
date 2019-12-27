@@ -1,7 +1,7 @@
-package net.drusantia.raidr.data.network.model.character
+package net.drusantia.raidr.data.model.character
 
-enum class Role {
-    TANK, HEALER, DPS;
+enum class Region {
+    US, EU, KR, TW;
 
     companion object {
         fun from(toParse: String) = values().first { it.name.equals(toParse, ignoreCase = true) }

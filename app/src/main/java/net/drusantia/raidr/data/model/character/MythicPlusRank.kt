@@ -1,4 +1,4 @@
-package net.drusantia.raidr.data.network.model.character
+package net.drusantia.raidr.data.model.character
 
 import com.google.gson.annotations.SerializedName
 

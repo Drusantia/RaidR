@@ -1,4 +1,6 @@
-package net.drusantia.raidr.data.network
+package net.drusantia.raidr.data.network.accessor
+
+import net.drusantia.raidr.data.network.endpoint.RaiderIoCharacterApi
 
 class RaiderIoCharacterAccessor(
     private val apiClient: RaiderIoCharacterApi

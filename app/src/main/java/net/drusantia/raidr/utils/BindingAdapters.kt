@@ -3,7 +3,7 @@ package net.drusantia.raidr.utils
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import net.drusantia.raidr.R
-import net.drusantia.raidr.data.network.model.character.MythicPlusRun
+import net.drusantia.raidr.data.model.character.MythicPlusRun
 import kotlin.math.roundToInt
 
 @BindingAdapter("mythicPlusRuns")

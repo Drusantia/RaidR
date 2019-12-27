@@ -1,7 +1,7 @@
 package net.drusantia.raidr.data
 
 import com.google.gson.Gson
-import net.drusantia.raidr.data.network.model.character.PlayerCharacter
+import net.drusantia.raidr.data.model.character.PlayerCharacter
 import org.junit.Test
 
 class PlayerCharacterTest {

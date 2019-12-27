@@ -1,7 +1,6 @@
-package net.drusantia.raidr.data.network
+package net.drusantia.raidr.data.network.endpoint
 
-import net.drusantia.raidr.data.network.model.character.*
-import retrofit2.Response
+import net.drusantia.raidr.data.model.character.*
 import retrofit2.http.*
 
 interface RaiderIoCharacterApi {
@@ -12,7 +11,3 @@ interface RaiderIoCharacterApi {
         @Query("name") name: String? = "Fenrohas",
         @Query("fields") fields: String? = Fields.ALL.getUrlParams()): PlayerCharacter
 }
-
-interface RaiderIoGuildApi {}
-interface RaiderIoMythicPlusApi {}
-interface RaiderIoRaidingApi {}

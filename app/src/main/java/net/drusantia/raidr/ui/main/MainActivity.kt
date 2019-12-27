@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import net.drusantia.raidr.R
-import net.drusantia.raidr.data.network.model.character.PlayerCharacter
+import net.drusantia.raidr.data.model.character.PlayerCharacter
 import net.drusantia.raidr.databinding.ActivityMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber

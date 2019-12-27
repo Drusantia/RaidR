@@ -3,6 +3,7 @@ apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "io.objectbox"
 
 android {
     compileSdkVersion 28
@@ -32,6 +33,7 @@ android {
 
     buildTypes.all { buildType ->
         buildConfigField "String", "API_BASE_URL", "\"https://raider.io/api/v1/\""
+        buildConfigField "String", "ROOM_DB_NAME", "\"RaidR.db\""
     }
 
     compileOptions {
@@ -50,31 +52,46 @@ dependencies {
     // App dependencies
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.core:core-ktx:$appCompatVersion"
-    implementation "androidx.cardview:cardview:$cardVersion"
-    implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "androidx.annotation:annotation:$androidXAnnotations"
-    implementation "com.jakewharton.timber:timber:$timberVersion"
+    // -> Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    // -> Material / Views / UI Elements
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.cardview:cardview:$cardVersion"
+    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    
+    // Networking
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
+    // -> Image loading
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+
+    // Logging
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+    
+    // Networking + Logging
     implementation "com.facebook.stetho:stetho:$stethoVersion"
     implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
     // Architecture Components
-    implementation "androidx.room:room-runtime:$roomVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-    implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+    kapt "androidx.lifecycle:lifecycle-common-java8:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
     implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    // -> Database
+    implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
+//    implementation "androidx.room:room-runtime:$roomVersion"
+//    implementation "androidx.room:room-ktx:$roomVersion"
+//    kapt "androidx.room:room-compiler:$roomVersion"
 
-    // DI
+    // Dependency Injection
     implementation "org.koin:koin-android:$koinVersion"
     implementation "org.koin:koin-androidx-scope:$koinVersion"
     implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
@@ -105,8 +122,4 @@ dependencies {
     testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 }
