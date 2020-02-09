@@ -1,16 +1,13 @@
 package net.drusantia.raidr.data.model.character
 
-import io.objectbox.annotation.*
+import com.squareup.moshi.JsonClass
 
 //@Entity(tableName = "MythicPlusScores")
-@Entity
+@JsonClass(generateAdapter = true)
 data class MythicPlusScores(
 //    /** This field is only for Room */
 //    @PrimaryKey(autoGenerate = true)
 //    val roomId: Int,
-
-    @Id
-    var id: Long = 0L,
 
     var all: Int = 0,
     var dps: Int = 0,

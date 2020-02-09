@@ -1,7 +1,6 @@
 package net.drusantia.raidr.data.model.character
 
-import com.google.gson.annotations.SerializedName
-import io.objectbox.annotation.*
+import com.squareup.moshi.*
 import net.drusantia.raidr.utils.extensions.empty
 import java.util.*
 
@@ -9,56 +8,54 @@ import java.util.*
 //    tableName = "PlayerCharacter",
 //    primaryKeys = ["regionName", "realm", "name"],
 //    ignoredColumns = ["playerClass", "activeSpec", "activeSpecRole", "faction", "region", "realmSlug"])
-@Entity
+@JsonClass(generateAdapter = true)
 data class PlayerCharacter(
-    @Id
-    var id: Long,
+    var id: Long?,
 
     var name: String = String.empty,
     var race: String = String.empty,
     var gender: String = String.empty,
     var realm: String = String.empty,
 
-    @Backlink
     var gear: Gear = Gear(),
 
-    @SerializedName("class")
+    @field:Json(name = "class")
     var className: String = String.empty,
 
-    @SerializedName("active_spec_name")
+    @field:Json(name = "active_spec_name")
     var activeSpecName: String = String.empty,
 
-    @SerializedName("active_spec_role")
+    @field:Json(name = "active_spec_role")
     var activeSpecRoleName: String = String.empty,
 
-    @SerializedName("faction")
+    @field:Json(name = "faction")
     var factionName: String = String.empty,
 
-    @SerializedName("region")
+    @field:Json(name = "region")
     var regionName: String = String.empty,
 
-    @SerializedName("profile_url")
+    @field:Json(name = "profile_url")
     var profileUrl: String = String.empty,
 
-    @SerializedName("raid_progression")
+    @field:Json(name = "raid_progression")
     var raidProgression: Map<String, RaidProgression> = mapOf(),
 
-    @SerializedName("mythic_plus_ranks")
+    @field:Json(name = "mythic_plus_ranks")
     var mythicPlusRanks: Map<String, MythicPlusRankingLevel> = mapOf(),
 
-    @SerializedName("mythic_plus_scores")
+    @field:Json(name = "mythic_plus_scores")
     var mythicPlusScores: MythicPlusScores = MythicPlusScores(),
 
-    @SerializedName("previous_mythic_plus_ranks")
+    @field:Json(name = "previous_mythic_plus_ranks")
     var previousMythicPlusRanks: Map<String, MythicPlusRankingLevel> = mapOf(),
 
-    @SerializedName("previous_mythic_plus_scores")
+    @field:Json(name = "previous_mythic_plus_scores")
     var previousMythicPlusScores: MythicPlusScores = MythicPlusScores(),
 
-    @SerializedName("mythic_plus_recent_runs")
+    @field:Json(name = "mythic_plus_recent_runs")
     var mythicPlusRecentRuns: List<MythicPlusRun> = listOf(),
 
-    @SerializedName("mythic_plus_best_runs")
+    @field:Json(name = "mythic_plus_best_runs")
     var mythicPlusBestRuns: List<MythicPlusRun> = listOf()
 ) {
 //    @delegate:Ignore

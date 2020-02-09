@@ -9,5 +9,6 @@ interface RaiderIoCharacterApi {
         @Query("region") region: String? = Region.EU.name,
         @Query("realm") realm: String? = "Ragnaros",
         @Query("name") name: String? = "Fenrohas",
-        @Query("fields") fields: String? = Fields.ALL.getUrlParams()): PlayerCharacter
+        @Query("fields") fields: String? = Fields.ALL.getUrlParams()
+    ): PlayerCharacter
 }

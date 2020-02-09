@@ -1,4 +1,4 @@
-//package net.drusantia.raidr.data.persistence
+package net.drusantia.raidr.data.persistence
 //
 //import android.content.Context
 //import androidx.room.*

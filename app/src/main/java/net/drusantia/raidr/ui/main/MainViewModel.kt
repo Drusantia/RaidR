@@ -2,6 +2,7 @@ package net.drusantia.raidr.ui.main
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
+import net.drusantia.raidr.application.RaidrApplication
 import net.drusantia.raidr.data.network.accessor.RaiderIoCharacterAccessor
 import net.drusantia.raidr.data.model.character.PlayerCharacter
 import org.koin.core.*

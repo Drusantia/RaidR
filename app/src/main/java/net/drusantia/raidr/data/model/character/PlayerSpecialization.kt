@@ -1,5 +1,7 @@
 package net.drusantia.raidr.data.model.character
 
+import com.squareup.moshi.JsonClass
+
 enum class PlayerSpecialization {
     Blood {
         override fun getPlayerClass() = PlayerClass.DeathKnight

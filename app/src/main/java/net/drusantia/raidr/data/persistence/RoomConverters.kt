@@ -1,4 +1,4 @@
-//package net.drusantia.raidr.data.persistence
+package net.drusantia.raidr.data.persistence
 //
 //import androidx.room.TypeConverter
 //import java.util.*

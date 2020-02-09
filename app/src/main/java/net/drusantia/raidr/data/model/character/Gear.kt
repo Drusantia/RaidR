@@ -1,7 +1,6 @@
 package net.drusantia.raidr.data.model.character
 
-import com.google.gson.annotations.SerializedName
-import io.objectbox.annotation.*
+import com.squareup.moshi.*
 
 //@Entity(
 //    tableName = "Gear",
@@ -12,21 +11,18 @@ import io.objectbox.annotation.*
 //            childColumns = ["gear"],
 //            onDelete = ForeignKey.CASCADE)
 //    ])
-@Entity
+@JsonClass(generateAdapter = true)
 data class Gear(
 //    /** This field is only for Room */
 //    @PrimaryKey(autoGenerate = true)
 //    val roomId: Int,
 
-    @Id
-    var id: Long = 0L,
+    @field:Json(name = "item_level_equipped")
+    var itemLevelEquipped: Double = 0.0,
 
-    @SerializedName("item_level_equipped")
-    var itemLevelEquipped : Double = 0.0,
+    @field:Json(name = "item_level_total")
+    var itemLevelTotal: Double = 0.0,
 
-    @SerializedName("item_level_total")
-    var itemLevelTotal : Double = 0.0,
-
-    @SerializedName("artifact_traits")
-    var artifactTraits : Int = 0
+    @field:Json(name = "artifact_traits")
+    var artifactTraits: Double = 0.0
 )
