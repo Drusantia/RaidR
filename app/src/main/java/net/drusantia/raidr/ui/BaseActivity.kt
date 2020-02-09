@@ -9,7 +9,7 @@ import net.drusantia.raidr.utils.DarkModeHelper
 import org.koin.android.ext.android.inject
 
 abstract class BaseActivity : AppCompatActivity() {
-    protected val darkModeHelper: DarkModeHelper by inject()
+    private val darkModeHelper: DarkModeHelper by inject()
     protected var darkMode = false
 
     override fun onResume() {
