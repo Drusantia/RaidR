@@ -8,7 +8,7 @@ val PersistenceKoinModule = module {
     single { provideStoreCachePolicy() }
 }
 
-fun provideStoreCachePolicy() = MemoryPolicy.MemoryPolicyBuilder()
+fun provideStoreCachePolicy() = MemoryPolicy.builder()
     .setExpireAfterWrite(30)
     .setExpireAfterTimeUnit(TimeUnit.SECONDS)
     .build()
