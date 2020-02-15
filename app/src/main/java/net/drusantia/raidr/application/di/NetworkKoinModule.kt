@@ -3,6 +3,7 @@ package net.drusantia.raidr.application.di
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import net.drusantia.raidr.BuildConfig
 import net.drusantia.raidr.data.network.AuthInterceptor
 import net.drusantia.raidr.data.network.accessor.*
@@ -12,6 +13,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+@ExperimentalCoroutinesApi
 val NetworkKoinModule = module {
     single { provideOkHttpClient() }
     single { provideMoshi() }
@@ -22,7 +24,7 @@ val NetworkKoinModule = module {
     single { provideRaiderIoMythicPlusApi(get()) }
     single { provideRaiderIoRaidingApi(get()) }
 
-    single { RaiderIoCharacterAccessor(get()) }
+    single { RaiderIoCharacterAccessor(get(), get()) }
     single { RaiderIoGuildAccessor(get()) }
     single { RaiderIoMythicPlusAccessor(get()) }
     single { RaiderIoRaidingAccessor(get()) }
