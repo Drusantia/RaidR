@@ -1,4 +1,4 @@
-package net.drusantia.raidr.data.network.accessor
+package net.drusantia.raidr.data.repository
 
 import com.dropbox.android.external.store4.*
 import kotlinx.coroutines.*
@@ -8,7 +8,7 @@ import timber.log.Timber
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class RaiderIoCharacterAccessor(
+class RaiderIoCharacterRepository(
     private val apiClient: RaiderIoCharacterApi,
     private val cachePolicy: MemoryPolicy
 ) {

@@ -1,7 +1,7 @@
-package net.drusantia.raidr.data.network.accessor
+package net.drusantia.raidr.data.repository
 
 import net.drusantia.raidr.data.network.endpoint.RaiderIoMythicPlusApi
 
-class RaiderIoMythicPlusAccessor (
+class RaiderIoMythicPlusRepository (
     private val apiClient: RaiderIoMythicPlusApi
 )

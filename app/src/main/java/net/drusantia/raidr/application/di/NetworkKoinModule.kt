@@ -6,8 +6,8 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.*
 import net.drusantia.raidr.BuildConfig
 import net.drusantia.raidr.data.network.*
-import net.drusantia.raidr.data.network.accessor.*
 import net.drusantia.raidr.data.network.endpoint.*
+import net.drusantia.raidr.data.repository.*
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -28,10 +28,10 @@ val NetworkKoinModule = module {
     single { provideRaiderIoMythicPlusApi(get()) }
     single { provideRaiderIoRaidingApi(get()) }
 
-    single { RaiderIoCharacterAccessor(get(), get()) }
-    single { RaiderIoGuildAccessor(get()) }
-    single { RaiderIoMythicPlusAccessor(get()) }
-    single { RaiderIoRaidingAccessor(get()) }
+    single { RaiderIoCharacterRepository(get(), get()) }
+    single { RaiderIoGuildRepository(get()) }
+    single { RaiderIoMythicPlusRepository(get()) }
+    single { RaiderIoRaidingRepository(get()) }
 }
 
 private fun provideOkHttpClient(nal: NetworkAvailabilityListener): OkHttpClient = OkHttpClient()

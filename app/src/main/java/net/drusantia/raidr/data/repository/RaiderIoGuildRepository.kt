@@ -1,7 +1,7 @@
-package net.drusantia.raidr.data.network.accessor
+package net.drusantia.raidr.data.repository
 
 import net.drusantia.raidr.data.network.endpoint.RaiderIoGuildApi
 
-class RaiderIoGuildAccessor(
+class RaiderIoGuildRepository(
     private val apiClient: RaiderIoGuildApi
 )
