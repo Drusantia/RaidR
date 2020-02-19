@@ -2,14 +2,17 @@ package net.drusantia.raidr.application
 
 import android.app.Application
 import com.facebook.stetho.Stetho
+import kotlinx.coroutines.*
 import net.drusantia.raidr.application.di.*
 import net.drusantia.raidr.utils.build.onDebug
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
+import org.koin.android.ext.koin.*
 import org.koin.core.context.startKoin
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
+@FlowPreview
+@Suppress("unused")
+@ExperimentalCoroutinesApi
 class RaidrApplication : Application() {
     override fun onCreate() {
         super.onCreate()

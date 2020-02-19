@@ -3,19 +3,23 @@ package net.drusantia.raidr.application.di
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 import net.drusantia.raidr.BuildConfig
-import net.drusantia.raidr.data.network.AuthInterceptor
+import net.drusantia.raidr.data.network.*
 import net.drusantia.raidr.data.network.accessor.*
 import net.drusantia.raidr.data.network.endpoint.*
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
 
+@FlowPreview
 @ExperimentalCoroutinesApi
 val NetworkKoinModule = module {
-    single { provideOkHttpClient() }
+    single { NetworkAvailabilityListener(androidContext()) }
+    single { provideOkHttpClient(get()) }
     single { provideMoshi() }
     single { provideRaiderIoRetrofit(get(), get()) }
 
@@ -30,9 +34,12 @@ val NetworkKoinModule = module {
     single { RaiderIoRaidingAccessor(get()) }
 }
 
-private fun provideOkHttpClient(): OkHttpClient = OkHttpClient()
+private fun provideOkHttpClient(nal: NetworkAvailabilityListener): OkHttpClient = OkHttpClient()
     .newBuilder()
     .addNetworkInterceptor(StethoInterceptor())
+    .addInterceptor(NetworkAvailabilityInterceptor(
+        isNetworkAvailable = { nal.isConnected() },
+        onInternetUnavailable = { Timber.e("Internet connection not available.") }))
     .addInterceptor(AuthInterceptor())
     .build()
 

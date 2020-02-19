@@ -5,6 +5,7 @@ import kotlinx.coroutines.*
 import net.drusantia.raidr.data.model.character.PlayerCharacter
 import net.drusantia.raidr.data.network.accessor.RaiderIoCharacterAccessor
 import org.koin.core.*
+import timber.log.Timber
 
 @FlowPreview
 @ExperimentalCoroutinesApi
@@ -20,8 +21,13 @@ class MainViewModel : ViewModel(), KoinComponent {
 
     @ExperimentalCoroutinesApi
     fun load() = viewModelScope.launch {
-//        val value = accessor.getCharacter(RaiderIoCharacterAccessor.RequestKeys.FENRO)
-        val value = accessor.getCharacter()
-        fenrohas.postValue(value)
+        //        val value = accessor.getCharacter(RaiderIoCharacterAccessor.RequestKeys.FENRO)
+        try {
+            val value = accessor.getCharacter()
+            fenrohas.postValue(value)
+        } catch (e: Exception) {
+            Timber.e(e)
+            fenrohas.postValue(null)
+        }
     }
 }

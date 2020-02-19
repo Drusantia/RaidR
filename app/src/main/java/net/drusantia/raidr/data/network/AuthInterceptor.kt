@@ -2,7 +2,7 @@ package net.drusantia.raidr.data.network
 
 import okhttp3.*
 
-class AuthInterceptor() : Interceptor {
+class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         chain.request().run {
 //            val url = url()

@@ -7,6 +7,7 @@ import android.os.Build.VERSION_CODES.P
 fun PackageManager.isApplicationWithPackageInstalled(packageName: String): InstalledPackageInfo = try {
     val applicationInfo = getApplicationInfo(packageName, PackageManager.GET_META_DATA)
     val packageInfo = getPackageInfo(packageName, 0)
+    @Suppress("DEPRECATION")
     if (SDK_INT >= P)
         InstalledPackageInfo(true, applicationInfo.enabled, packageInfo.longVersionCode)
     else InstalledPackageInfo(true, applicationInfo.enabled, packageInfo.versionCode.toLong())
