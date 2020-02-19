@@ -4,22 +4,16 @@ import com.dropbox.android.external.store4.*
 import kotlinx.coroutines.*
 import net.drusantia.raidr.data.model.character.PlayerCharacter
 import net.drusantia.raidr.data.network.endpoint.RaiderIoCharacterApi
-import timber.log.Timber
+import net.drusantia.raidr.utils.lazyStore
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 class RaiderIoCharacterRepository(
-    private val apiClient: RaiderIoCharacterApi,
-    private val cachePolicy: MemoryPolicy
+    cachePolicy: MemoryPolicy,
+    private val apiClient: RaiderIoCharacterApi
 ) {
-    private val characterStore by lazy {
-        StoreBuilder
-            .fromNonFlow<RequestKeys, PlayerCharacter> {
-                Timber.i("Fetching: $it")
-                apiClient.getProfileAsync(name = it.name)
-            }
-            .cachePolicy(cachePolicy)
-            .build()
+    private val characterStore by lazyStore<RequestKeys, PlayerCharacter>(cachePolicy) {
+        apiClient.getProfileAsync(name = it.name)
     }
 
     suspend fun getCharacter(key: RequestKeys = RequestKeys.FENROHAS) = characterStore.get(key)
