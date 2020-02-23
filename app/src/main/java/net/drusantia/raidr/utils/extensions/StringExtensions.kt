@@ -1,3 +1,5 @@
+@file:Suppress("KDocUnresolvedReference", "unused")
+
 package net.drusantia.raidr.utils.extensions
 
 import android.graphics.Typeface
@@ -44,7 +46,7 @@ fun String.fromHTML(): Spanned {
  * @param [makeBold]    indicates if the matching texts should be made bold. Default is false */
 fun String.colorizeBracketed(color: Int, isHighlightColor: Boolean = false, makeBold: Boolean = false): Spannable {
     var inputString = this
-    val pattern: Regex = "\\[(.*?)\\]".toRegex()
+    val pattern: Regex = "\\[(.*?)]".toRegex()
     val spannable = SpannableStringBuilder(inputString)
     pattern.findAll(inputString)
             .forEach {

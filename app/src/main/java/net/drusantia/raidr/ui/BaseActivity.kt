@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import net.drusantia.raidr.utils.DarkModeHelper
 import org.koin.android.ext.android.inject
 
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class BaseActivity : AppCompatActivity() {
     private val darkModeHelper: DarkModeHelper by inject()
     protected var darkMode = false

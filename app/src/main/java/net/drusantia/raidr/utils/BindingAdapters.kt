@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package net.drusantia.raidr.utils
 
 import android.os.Build

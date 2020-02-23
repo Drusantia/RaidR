@@ -5,7 +5,6 @@ package net.drusantia.raidr.utils
 import com.dropbox.android.external.store4.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import retrofit2.HttpException
 import timber.log.Timber
 
 data class StoreResult<Output : Any>(

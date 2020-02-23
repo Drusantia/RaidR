@@ -1,7 +1,6 @@
 package net.drusantia.raidr.data.network.interceptor
 
 import okhttp3.*
-import timber.log.Timber
 
 private const val ERROR_MESSAGE = "Internet connection not available"
 private val ERROR_RESPONSE by lazy { ResponseBody.create(MediaType.get("application/json"), "{}") }
