@@ -1,4 +1,4 @@
-package net.drusantia.raidr.data.network
+package net.drusantia.raidr.data.network.interceptor
 
 import okhttp3.*
 

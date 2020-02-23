@@ -1,6 +1,4 @@
-package net.drusantia.raidr.data.model.character
-
-import com.squareup.moshi.JsonClass
+package net.drusantia.raidr.data.model
 
 enum class PlayerSpecialization {
     Blood {

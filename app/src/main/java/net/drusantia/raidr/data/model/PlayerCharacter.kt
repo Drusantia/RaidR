@@ -1,4 +1,4 @@
-package net.drusantia.raidr.data.model.character
+package net.drusantia.raidr.data.model
 
 import com.squareup.moshi.*
 import net.drusantia.raidr.utils.extensions.empty
@@ -17,7 +17,7 @@ data class PlayerCharacter(
     var gender: String = String.empty,
     var realm: String = String.empty,
 
-    var gear: Gear = Gear(),
+    var gear: Gear,
 
     @field:Json(name = "class")
     var className: String = String.empty,

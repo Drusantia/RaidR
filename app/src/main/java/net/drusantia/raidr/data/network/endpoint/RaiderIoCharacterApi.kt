@@ -1,6 +1,8 @@
 package net.drusantia.raidr.data.network.endpoint
 
-import net.drusantia.raidr.data.model.character.*
+import net.drusantia.raidr.data.model.Fields
+import net.drusantia.raidr.data.model.PlayerCharacter
+import net.drusantia.raidr.data.model.Region
 import retrofit2.http.*
 
 interface RaiderIoCharacterApi {

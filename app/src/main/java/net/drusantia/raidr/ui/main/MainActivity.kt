@@ -5,16 +5,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import net.drusantia.raidr.R
-import net.drusantia.raidr.data.model.character.PlayerCharacter
+import net.drusantia.raidr.data.LiveEvent
+import net.drusantia.raidr.data.model.PlayerCharacter
 import net.drusantia.raidr.databinding.ActivityMainBinding
+import net.drusantia.raidr.utils.extensions.showHttpErrorToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 @FlowPreview
+@InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
     private val vm by viewModel<MainViewModel>()
-    private val fenrohasObserver = Observer<PlayerCharacter?> { Timber.d("$it") }
+    private val characterObserver = Observer<PlayerCharacter?> { Timber.d("$it") }
+    private val errorObserver = Observer<LiveEvent<Throwable?>> { event -> event.getAndClear()?.let { error -> showHttpErrorToast(error) } }
 
     init {
         lifecycleScope.launchWhenCreated {
@@ -23,7 +27,8 @@ class MainActivity : AppCompatActivity() {
             binding.lifecycleOwner = this@MainActivity
         }
         lifecycleScope.launchWhenStarted {
-            vm.fenrohas.observe(this@MainActivity, fenrohasObserver)
+            vm.character.observe(this@MainActivity, characterObserver)
+            vm.error.observe(this@MainActivity, errorObserver)
             Timber.i("vm.load()")
             vm.load()
         }

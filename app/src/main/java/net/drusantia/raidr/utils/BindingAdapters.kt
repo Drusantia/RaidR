@@ -6,8 +6,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import net.drusantia.raidr.R
-import net.drusantia.raidr.data.model.character.MythicPlusRun
-import kotlin.math.roundToInt
+import net.drusantia.raidr.data.model.MythicPlusRun
 
 @BindingAdapter("mythicPlusRuns")
 fun TextView.mythicPlusRuns(mythicPlusRun: List<MythicPlusRun>?) {
@@ -17,7 +16,7 @@ fun TextView.mythicPlusRuns(mythicPlusRun: List<MythicPlusRun>?) {
             sumScore += it.score
             "${it.dungeon} <b>${it.mythicLevel}</b>: <b>${it.score}</b><br/>"
         }
-        ?.plus("<br/><br/><b>Current RIO: ${sumScore.roundToInt()}</b>")
+        ?.plus("<br/><b>Current RIO: $sumScore</b>")
         ?: context.resources.getString(R.string.loading))
 }
 

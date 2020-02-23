@@ -1,4 +1,4 @@
-package net.drusantia.raidr.data.model.character
+package net.drusantia.raidr.data.model
 
 import com.squareup.moshi.*
 import net.drusantia.raidr.utils.extensions.empty

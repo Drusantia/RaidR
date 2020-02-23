@@ -1,4 +1,4 @@
-package net.drusantia.raidr.data.model.character
+package net.drusantia.raidr.data.model
 
 enum class Fields {
     GENERAL {

@@ -2,17 +2,21 @@ package net.drusantia.raidr.ui.main
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
-import net.drusantia.raidr.data.model.character.PlayerCharacter
+import net.drusantia.raidr.data.LiveEvent
+import net.drusantia.raidr.data.model.PlayerCharacter
 import net.drusantia.raidr.data.repository.RaiderIoCharacterRepository
+import net.drusantia.raidr.data.repository.RaiderIoCharacterRepository.RequestKeys.FENROHAS
+import net.drusantia.raidr.utils.StoreResult
 import org.koin.core.*
-import timber.log.Timber
 
 @FlowPreview
+@InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 class MainViewModel : ViewModel(), KoinComponent {
     private val repository: RaiderIoCharacterRepository by inject()
 
-    val fenrohas = MutableLiveData<PlayerCharacter?>()
+    val character = MutableLiveData<PlayerCharacter?>()
+    val error = MutableLiveData<LiveEvent<Throwable?>>(LiveEvent(null))
 
     override fun onCleared() {
         super.onCleared()
@@ -21,13 +25,8 @@ class MainViewModel : ViewModel(), KoinComponent {
 
     @ExperimentalCoroutinesApi
     fun load() = viewModelScope.launch {
-        //        val value = accessor.getCharacter(RaiderIoCharacterAccessor.RequestKeys.FENRO)
-        try {
-            val value = repository.getCharacter()
-            fenrohas.postValue(value)
-        } catch (e: Exception) {
-            Timber.e(e)
-            fenrohas.postValue(null)
-        }
+        repository.getCharacterStream(FENROHAS, StoreResult(
+            onError = { error.postValue(LiveEvent(it)) },
+            onFinished = { character.postValue(it) }))
     }
 }

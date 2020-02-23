@@ -1,12 +1,17 @@
 package net.drusantia.raidr.data.repository
 
-import com.dropbox.android.external.store4.*
-import kotlinx.coroutines.*
-import net.drusantia.raidr.data.model.character.PlayerCharacter
+import com.dropbox.android.external.store4.MemoryPolicy
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.InternalCoroutinesApi
+import net.drusantia.raidr.data.model.PlayerCharacter
 import net.drusantia.raidr.data.network.endpoint.RaiderIoCharacterApi
+import net.drusantia.raidr.utils.StoreResult
+import net.drusantia.raidr.utils.cachedStream
 import net.drusantia.raidr.utils.lazyStore
 
 @FlowPreview
+@InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 class RaiderIoCharacterRepository(
     cachePolicy: MemoryPolicy,
@@ -16,8 +21,7 @@ class RaiderIoCharacterRepository(
         apiClient.getProfileAsync(name = it.name)
     }
 
-    suspend fun getCharacter(key: RequestKeys = RequestKeys.FENROHAS) = characterStore.get(key)
-    suspend fun getCharacterFresh(key: RequestKeys = RequestKeys.FENROHAS) = characterStore.fresh(key)
+   suspend fun getCharacterStream(key: RequestKeys, result: StoreResult<PlayerCharacter>) = characterStore.cachedStream(key, result)
 
     enum class RequestKeys {
         FENROHAS,

@@ -2,8 +2,10 @@ package net.drusantia.raidr.utils.extensions
 
 import android.content.Context
 import android.content.res.Resources
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import net.drusantia.raidr.R
+import retrofit2.HttpException
 import kotlin.reflect.full.staticProperties
 
 private val STRING_RESOURCE_ID_PREFIX by lazy { "@string/" }
@@ -13,6 +15,12 @@ fun Context.getResolvedString(resId: Int) = resolveString(this.resources, resId)
 fun Resources.getResolvedString(resId: Int) = resolveString(this, resId)
 fun Fragment.getResolvedString(resId: Int) = resolveString(resources, resId)
 fun String.resolveStringResourceReferences(resources: Resources) = resolveStringRecursively(resources, this)
+
+fun Context.showHttpErrorToast(throwable: Throwable) {
+    if (throwable is HttpException) {
+        Toast.makeText(this, throwable.message(), Toast.LENGTH_LONG).show()
+    }
+}
 
 private fun resolveString(resources: Resources, resId: Int): String {
     val originalString = resources.getString(resId)
@@ -25,22 +33,22 @@ private fun resolveStringRecursively(resources: Resources, originalString: Strin
         return originalString
     var resolvedString = originalString
     STRING_RECURSIVE_IDS_REGEX
-            .findAll(originalString)
-            .forEach { match ->
-                val stringReferenceText = match.groups[0]?.value
-                val stringReferenceName = match.groups[3]?.value
-                stringReferenceName?.let {
-                    val referredResourceId = R.string::class
-                            .staticProperties
-                            .find { it.name == stringReferenceName }
-                            ?.getter?.call() as Int?
+        .findAll(originalString)
+        .forEach { match ->
+            val stringReferenceText = match.groups[0]?.value
+            val stringReferenceName = match.groups[3]?.value
+            stringReferenceName?.let {
+                val referredResourceId = R.string::class
+                    .staticProperties
+                    .find { it.name == stringReferenceName }
+                    ?.getter?.call() as Int?
 
-                    referredResourceId?.let {
-                        resolvedString = resolvedString.replace(
-                                stringReferenceText ?: String.empty,
-                                resolveString(resources, it))
-                    }
+                referredResourceId?.let {
+                    resolvedString = resolvedString.replace(
+                        stringReferenceText ?: String.empty,
+                        resolveString(resources, it))
                 }
             }
+        }
     return resolvedString
 }
