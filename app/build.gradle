@@ -31,7 +31,7 @@ android {
     }
 
     buildTypes.all { buildType ->
-        buildConfigField "String", "API_BASE_URL", "\"https://raider.io/api/v1/\""
+        buildConfigField "String", "API_BASE_URL", "\"https://raider.io/api/\""
         buildConfigField "String", "ROOM_DB_NAME", "\"RaidR.db\""
     }
 
@@ -92,9 +92,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
     // -> Database
-//    implementation "androidx.room:room-runtime:$roomVersion"
-//    implementation "androidx.room:room-ktx:$roomVersion"
-//    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 
     // Dependency Injection
     implementation "org.koin:koin-android:$koinVersion"

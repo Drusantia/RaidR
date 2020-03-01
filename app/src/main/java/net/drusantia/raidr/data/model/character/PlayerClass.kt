@@ -1,6 +1,6 @@
-package net.drusantia.raidr.data.model
+package net.drusantia.raidr.data.model.character
 
-import net.drusantia.raidr.data.model.PlayerSpecialization.*
+import net.drusantia.raidr.data.model.character.PlayerSpecialization.*
 
 enum class PlayerClass {
     DeathKnight {

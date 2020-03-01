@@ -15,8 +15,8 @@ import net.drusantia.raidr.utils.SimpleTextWatcher
  * The validator lambda must contain the valid case, like: { input -> isValidEmail(input) }.
  * If the isValidEmail(input) returns false, than the validation fails with the given error message. */
 data class InputValidator(
-        val validator: (String) -> Boolean,
-        val errorMessage: String = "Invalid input"
+    val validator: (String) -> Boolean,
+    val errorMessage: String = "Invalid input"
 )
 
 /**
@@ -25,14 +25,11 @@ data class InputValidator(
  * Note: this extension is capable of handling one single validation. To use multiple ones, see [multiValidate].
  * Returns [true] is all validation passed, false if there is a validation fail, null if no validators was given or not just triggering, but adding validators. */
 fun EditText.validate(
-        validator: (String) -> Boolean,
-        message: String,
-        justTriggerValidation: Boolean = false
+    validator: (String) -> Boolean,
+    message: String,
+    justTriggerValidation: Boolean = false
 ): Boolean? {
     val validate: () -> Boolean = {
-        //val validationResult = "$text".isValid(validator, message)
-        //error = validationResult.second
-        //validationResult.first
         "$text".isValid(validator, message).run {
             error = second
             return@run first
@@ -54,8 +51,8 @@ fun EditText.validate(
  * Returns [true] is all validation passed, false if there is a validation fail, null if no validators was given or not just triggering, but adding validators.
  */
 fun EditText.multiValidate(
-        validators: Array<InputValidator>,
-        justTriggerValidation: Boolean = false
+    validators: Array<InputValidator>,
+    justTriggerValidation: Boolean = false
 ): Boolean? {
     if (validators.isEmpty()) return null
     val validate = {
@@ -84,10 +81,10 @@ fun EditText.multiValidate(
  * Note: this extension is capable of handling one single validation. To use multiple ones, see [multiValidateWithErrorTextView].
  * Returns [true] is all validation passed, false if there is a validation fail, null if no validators was given or not just triggering, but adding validators. */
 fun EditText.validateWithErrorTextView(
-        validator: (String) -> Boolean,
-        errorMessage: String,
-        errorView: View? = null,
-        justTriggerValidation: Boolean = false
+    validator: (String) -> Boolean,
+    errorMessage: String,
+    errorView: View? = null,
+    justTriggerValidation: Boolean = false
 ): Boolean? {
     val validate: () -> Boolean = {
         val validationResult = "$text".isValid(validator)
@@ -135,9 +132,9 @@ fun EditText.validateWithErrorTextView(
  * Note: To add a single validation (which is simpler), see [validateWithErrorTextView].
  * Returns [true] is all validation passed, false if there is a validation fail, null if no validators was given or not just triggering, but adding validators. */
 fun EditText.multiValidateWithErrorTextView(
-        validators: Array<InputValidator>,
-        errorView: View? = null,
-        justTriggerValidation: Boolean = false
+    validators: Array<InputValidator>,
+    errorView: View? = null,
+    justTriggerValidation: Boolean = false
 ): Boolean? {
     if (validators.isEmpty()) return null
     val validate: () -> Boolean = {
@@ -191,14 +188,14 @@ fun View.onEnterKey(body: () -> Unit) {
 }
 
 fun Context.coloredToast(
-        message: String,
-        backgroundColorId: Int? = null,
-        textColorId: Int? = null,
-        isLongToast: Boolean = true
+    message: String,
+    backgroundColorId: Int? = null,
+    textColorId: Int? = null,
+    isLongToast: Boolean = true
 ) = Toast.makeText(
-        this,
-        message,
-        if (isLongToast) Toast.LENGTH_LONG else Toast.LENGTH_LONG
+    this,
+    message,
+    if (isLongToast) Toast.LENGTH_LONG else Toast.LENGTH_LONG
 ).run {
     backgroundColorId?.let {
         view.background.setColorFilter(ContextCompat.getColor(this@coloredToast, it), PorterDuff.Mode.SRC_IN)

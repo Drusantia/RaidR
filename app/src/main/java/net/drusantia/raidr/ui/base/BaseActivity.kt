@@ -1,4 +1,4 @@
-package net.drusantia.raidr.ui
+package net.drusantia.raidr.ui.base
 
 import android.content.res.Configuration
 import android.os.Build.VERSION.SDK_INT

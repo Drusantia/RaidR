@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package net.drusantia.raidr.data.model
+package net.drusantia.raidr.data.model.character
 
 import com.squareup.moshi.*
 import net.drusantia.raidr.data.network.adapter.IValueEnum
@@ -100,17 +100,17 @@ data class AzeritePower(
 
 @JsonClass(generateAdapter = true)
 data class HeartOfAzeroth(
-    val essences: List<HeartOfAzerothEssence>,
+    val essences: List<HeartOfAzerothEssence>?,
     val level: Int,
     val progress: Double // <=100, % op current necklace XP
 )
 
 @JsonClass(generateAdapter = true)
 data class HeartOfAzerothEssence(
-    val id: Int,
-    val power: HeartOfAzerothPower,
-    val rank: Int,
-    val slot: Int
+    val id: Int?,
+    val power: HeartOfAzerothPower?,
+    val rank: Int?,
+    val slot: Int?
 )
 
 @JsonClass(generateAdapter = true)

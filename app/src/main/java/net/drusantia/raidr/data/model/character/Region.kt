@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package net.drusantia.raidr.data.model
+package net.drusantia.raidr.data.model.character
 
 enum class Region {
     US, EU, KR, TW;

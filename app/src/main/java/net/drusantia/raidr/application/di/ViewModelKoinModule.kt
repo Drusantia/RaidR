@@ -1,7 +1,7 @@
 package net.drusantia.raidr.application.di
 
 import kotlinx.coroutines.*
-import net.drusantia.raidr.ui.main.MainViewModel
+import net.drusantia.raidr.ui.main.SearchViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -9,5 +9,5 @@ import org.koin.dsl.module
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
 val ViewModelKoinModule = module {
-    viewModel { MainViewModel() }
+    viewModel { SearchViewModel() }
 }

@@ -3,7 +3,7 @@ package net.drusantia.raidr.data.persistence.dao
 ////import androidx.lifecycle.LiveData
 ////import androidx.room.*
 ////import androidx.room.OnConflictStrategy.REPLACE
-////import net.drusantia.raidr.data.model.PlayerCharacter
+////import net.drusantia.raidr.data.model.character.PlayerCharacter
 ////
 ////@Dao
 ////interface PlayerCharacterDao {

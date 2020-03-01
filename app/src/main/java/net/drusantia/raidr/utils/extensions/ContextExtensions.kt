@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import net.drusantia.raidr.R
 import retrofit2.HttpException
 import kotlin.reflect.full.staticProperties
@@ -18,9 +19,13 @@ fun Resources.getResolvedString(resId: Int) = resolveString(this, resId)
 fun Fragment.getResolvedString(resId: Int) = resolveString(resources, resId)
 fun String.resolveStringResourceReferences(resources: Resources) = resolveStringRecursively(resources, this)
 
+fun Fragment.showHttpErrorToast(throwable: Throwable) = activity?.showHttpErrorToast(throwable)
 fun Context.showHttpErrorToast(throwable: Throwable) {
     if (throwable is HttpException) {
-        Toast.makeText(this, throwable.message(), Toast.LENGTH_LONG).show()
+        val message = throwable.message()
+        if (!message.isNullOrBlank()) {
+            coloredToast(message, android.R.color.holo_red_light, android.R.color.white, false)
+        }
     }
 }
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="characterSearch_title">Search character or guild:</string>
+    <string name="characterSearch_clear">Clear</string>
+</resources>

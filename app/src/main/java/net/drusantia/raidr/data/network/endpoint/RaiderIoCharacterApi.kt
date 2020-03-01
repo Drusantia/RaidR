@@ -1,12 +1,12 @@
 package net.drusantia.raidr.data.network.endpoint
 
-import net.drusantia.raidr.data.model.Fields
-import net.drusantia.raidr.data.model.PlayerCharacter
-import net.drusantia.raidr.data.model.Region
+import net.drusantia.raidr.data.model.character.Fields
+import net.drusantia.raidr.data.model.character.PlayerCharacter
+import net.drusantia.raidr.data.model.character.Region
 import retrofit2.http.*
 
 interface RaiderIoCharacterApi {
-    @GET("characters/profile")
+    @GET("v1/characters/profile")
     suspend fun getProfileAsync(
         @Query("region") region: String? = Region.EU.name,
         @Query("realm") realm: String? = "Ragnaros",
