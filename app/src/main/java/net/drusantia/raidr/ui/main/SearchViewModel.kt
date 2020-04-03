@@ -9,6 +9,7 @@ import net.drusantia.raidr.data.network.requestmodel.CharacterRequest
 import net.drusantia.raidr.data.repository.*
 import net.drusantia.raidr.utils.StoreResult
 import org.koin.core.*
+import timber.log.Timber
 
 @FlowPreview
 @InternalCoroutinesApi
@@ -37,8 +38,8 @@ class SearchViewModel : ViewModel(), KoinComponent {
     @ExperimentalCoroutinesApi
     fun loadCharacter(requestModel: CharacterRequest) = viewModelScope.launch {
         characterRepository.getCharacterStream(requestModel, StoreResult(
-            onLoading = { character.postValue(null) },
-            onError = { error.postValue(LiveEvent(it)) },
-            onFinished = { character.postValue(it) }))
+            onLoading = { Timber.i("Loading"); character.postValue(null) },
+            onError = { Timber.e("Error, $it"); error.postValue(LiveEvent(it)) },
+            onFinished = { Timber.i("Loaded: $it"); character.postValue(it) }))
     }
 }

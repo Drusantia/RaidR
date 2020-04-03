@@ -49,24 +49,24 @@ data class Spell(
 
 @JsonClass(generateAdapter = true)
 data class Equipment(
-    val back: GearPiece,
-    val chest: GearPiece,
-    val feet: GearPiece,
-    val finger1: GearPiece,
-    val finger2: GearPiece,
-    val hands: GearPiece,
-    val head: GearPiece,
-    val legs: GearPiece,
+    val back: GearPiece?,
+    val chest: GearPiece?,
+    val feet: GearPiece?,
+    val finger1: GearPiece?,
+    val finger2: GearPiece?,
+    val hands: GearPiece?,
+    val head: GearPiece?,
+    val legs: GearPiece?,
     @field:Json(name = "mainhand")
-    val mainHand: GearPiece,
-    val neck: GearPiece,
+    val mainHand: GearPiece?,
+    val neck: GearPiece?,
     @field:Json(name = "offhand")
-    val offHand: GearPiece,
-    val shoulder: GearPiece,
-    val trinket1: GearPiece,
-    val trinket2: GearPiece,
-    val waist: GearPiece,
-    val wrist: GearPiece
+    val offHand: GearPiece?,
+    val shoulder: GearPiece?,
+    val trinket1: GearPiece?,
+    val trinket2: GearPiece?,
+    val waist: GearPiece?,
+    val wrist: GearPiece?
 )
 
 @JsonClass(generateAdapter = true)

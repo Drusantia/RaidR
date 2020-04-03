@@ -1,11 +1,14 @@
 package net.drusantia.raidr.ui.main
 
-import android.os.Bundle
+import android.annotation.SuppressLint
+import android.os.*
 import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.partial_search_character.view.*
 import kotlinx.coroutines.*
 import net.drusantia.raidr.R
 import net.drusantia.raidr.data.LiveEvent
@@ -13,7 +16,6 @@ import net.drusantia.raidr.data.model.general.*
 import net.drusantia.raidr.data.network.requestmodel.CharacterRequest
 import net.drusantia.raidr.databinding.*
 import net.drusantia.raidr.ui.base.GenericRecyclerAdapter
-import net.drusantia.raidr.utils.SimpleTextWatcher
 import net.drusantia.raidr.utils.extensions.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -22,6 +24,11 @@ import timber.log.Timber
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 class SearchFragment : Fragment() {
+    companion object {
+        private const val DEBOUNCE_TIME: Long = 500L
+        private const val DEBOUNCE_PROGRESS_UPDATE_INTERVAL: Long = 10L
+    }
+
     private lateinit var binding: FragmentSearchBinding
     private val viewModel by sharedViewModel<SearchViewModel>()
     private val errorObserver = Observer<LiveEvent<Throwable?>> { event -> event.getAndClear()?.let { error -> showHttpErrorToast(error) } }
@@ -29,13 +36,28 @@ class SearchFragment : Fragment() {
     private val searchItemAdapter = object : GenericRecyclerAdapter<SearchResult, ItemSearchResultBinding>(mutableListOf()) {
         override val layoutResId = R.layout.item_search_result
         override fun onItemClick(model: SearchResult, position: Int) = onItemClicked(model)
+        @SuppressLint("SetTextI18n")
         override fun onBindData(model: SearchResult, position: Int, binding: ItemSearchResultBinding) {
             binding.apply {
                 name.text = model.name
-                realm.text = model.data?.realm?.name
+                realm.text = "${model.data?.realm?.name}-${model.data?.region?.shortName}"
             }
         }
     }
+    private val searchDebounceTimer = object : CountDownTimer(DEBOUNCE_TIME, DEBOUNCE_PROGRESS_UPDATE_INTERVAL) {
+        override fun onTick(millisUntilFinished: Long) {
+            isTyping = true
+            binding.searchCharacterInclude.debounceTimer._visible()
+            binding.searchCharacterInclude.debounceTimer.progress = ((millisUntilFinished * 100) / DEBOUNCE_TIME).toInt()
+        }
+
+        override fun onFinish() {
+            isTyping = false
+            binding.searchCharacterInclude.debounceTimer._gone()
+            searchCharacterOrUser("${binding.searchCharacterInclude.search.text}")
+        }
+    }
+    private var isTyping = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
@@ -56,20 +78,32 @@ class SearchFragment : Fragment() {
     private fun FragmentSearchBinding.initSearchField() {
         searchCharacterInclude.search.apply {
             onEnterKey {
-                viewModel.search("$text")
+                searchCharacterOrUser("$text")
                 setText(String.empty)
             }
-            addTextChangedListener(SimpleTextWatcher(afterChanged = {
-                val term = "$text"
-                if (!term.isBlank() && term.length >= 2) {
-                    viewModel.search(term)
-                } else {
-                    searchItemAdapter.clearItems()
+            onTextChanged {
+                if (it.isEmpty()) {
+                    return@onTextChanged
                 }
-            }))
+
+                if (isTyping) {
+                    searchDebounceTimer.cancel()
+                }
+                searchDebounceTimer.start()
+            }
         }
         searchCharacterInclude.clear.setOnClickListener {
             searchCharacterInclude.search.setText(String.empty)
+        }
+    }
+
+    private fun searchCharacterOrUser(term: String) {
+        searchDebounceTimer.cancel()
+        isTyping = false
+        if (!term.isBlank() && term.length >= 2) {
+            viewModel.search(term)
+        } else {
+            searchItemAdapter.clearItems()
         }
     }
 
@@ -89,12 +123,12 @@ class SearchFragment : Fragment() {
         }
 
         val requestModel = CharacterRequest(
-            region = model.data?.region?.name?.substring(0..1),
+            region = model.data?.region?.shortName,
             realm = model.data?.realm?.name,
             name = model.name)
         viewModel.loadCharacter(requestModel)
         activity?.let {
-            CharacterFragment().loadTo(R.id.container, it.supportFragmentManager, FragmentHelper.BackStackBehaviour.Add, CharacterFragment::class.java.simpleName)
+            CharacterFragment().loadTo(R.id.container, it.supportFragmentManager, FragmentHelper.BackStackBehaviour.Add)
         }
     }
 }
