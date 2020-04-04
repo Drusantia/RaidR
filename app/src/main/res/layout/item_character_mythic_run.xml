@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="net.drusantia.raidr.data.model.character.MythicPlusRun" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/mythicLevel"
+                style="@style/TextAppearance.MaterialComponents.Headline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@{Integer.toString(model.mythicLevel)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="20" />
+
+            <TextView
+                android:id="@+id/dungeonName"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:padding="4dp"
+                android:includeFontPadding="true"
+                android:text="@{model.dungeon}"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@+id/score"
+                app:layout_constraintStart_toEndOf="@+id/mythicLevel"
+                app:layout_constraintTop_toTopOf="@+id/mythicLevel"
+                tools:text="Siege of Boralus" />
+
+            <TextView
+                android:id="@+id/completedAt"
+                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                app:dateTime="@{model.completedAt}"
+                app:layout_constraintStart_toStartOf="@id/mythicLevel"
+                app:layout_constraintBottom_toBottomOf="@+id/affixes"
+                tools:text="2020.03.31. 18:34:04" />
+
+            <TextView
+                android:id="@+id/clearTimeTitle"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/character_detail_cleared_title"
+                app:layout_constraintBottom_toTopOf="@+id/completedAt"
+                app:layout_constraintStart_toStartOf="@id/mythicLevel" />
+
+            <TextView
+                android:id="@+id/clearTime"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:includeFontPadding="false"
+                app:msToReadableTime="@{model.clearTimeInMilliseconds}"
+                app:layout_constraintBottom_toBottomOf="@+id/clearTimeTitle"
+                app:layout_constraintStart_toEndOf="@id/clearTimeTitle"
+                tools:text="34:23" />
+
+            <TextView
+                android:id="@+id/score"
+                style="@style/TextAppearance.MaterialComponents.Headline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@{Double.toString(model.score)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="197.2" />
+
+            <TextView
+                android:id="@+id/keyUpgradeAmount"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                app:keystoneLevelUpgrade="@{model.keystoneLevelUpgrade}"
+                app:layout_constraintEnd_toEndOf="@+id/score"
+                app:layout_constraintTop_toBottomOf="@+id/score"
+                tools:text="+2" />
+
+            <LinearLayout
+                android:id="@+id/affixes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:affixImages="@{model.affixes}"
+                app:layout_constraintEnd_toEndOf="@+id/keyUpgradeAmount"
+                app:layout_constraintTop_toBottomOf="@+id/keyUpgradeAmount"
+                tools:minHeight="32dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

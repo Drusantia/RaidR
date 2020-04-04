@@ -1,6 +1,14 @@
 package net.drusantia.raidr.utils.extensions
 
+import android.content.Context
+import android.util.DisplayMetrics
 import kotlinx.coroutines.*
+
+fun Int.px2dp(context: Context): Int = run {
+    val resources = context.resources
+    val metrics = resources.displayMetrics
+    (this / (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt()
+}
 
 fun <T> debounce(
     coroutineScope: CoroutineScope,

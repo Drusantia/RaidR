@@ -2,6 +2,7 @@
 
 package net.drusantia.raidr.data.model.character
 
+import androidx.databinding.BindingAdapter
 import com.squareup.moshi.*
 import net.drusantia.raidr.utils.extensions.empty
 import java.util.*
@@ -87,4 +88,7 @@ data class PlayerCharacter(
 //    @PrimaryKey
 //    @Id
     val path = "$regionName/$realm/$name"
+
+    @delegate:Transient
+    val currentScore: String by lazy { String.format("%.2f", mythicPlusBestRuns.sumByDouble { it.score })}
 }

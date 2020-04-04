@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,29 +10,26 @@
             type="net.drusantia.raidr.ui.main.SearchViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/profileContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/mythicPlusInfo"
+        <include
+            android:id="@+id/characterDetails"
+            layout="@layout/partial_character_details"
+            app:visibleIf="@{vm.character != null}"
+            bind:character="@{vm.character}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:mythicPlusRuns="@{vm.character.mythicPlusBestRuns}"/>
-
-        <!--<TextView
-            android:id="@+id/gearInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mythicPlusInfo"
-            app:text="@{vm.character.gear.toString()}" />-->
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:nestedScrollingEnabled="true"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
 </layout>
