@@ -18,7 +18,7 @@ fun <T : IValueEnum> Moshi.Builder.addValueEnums(vararg kClass: KClass<T>): Mosh
     return this
 }
 
-fun Context.createTooltip(content: String, anchor: View) = Tooltip.Builder(this)
+fun Context.createTooltip(content: String, anchor: View, withLightOverlay: Boolean = true) = Tooltip.Builder(this)
     .anchor(anchor)
     .text(content)
     .maxWidth(resources.displayMetrics.widthPixels / 2)
@@ -28,10 +28,11 @@ fun Context.createTooltip(content: String, anchor: View) = Tooltip.Builder(this)
         .outside(true)
         .consume(true)
         .build())
-    .styleId(R.style.RaidRToolTipStyle)
+    .styleId(if (withLightOverlay) R.style.RaidRTooltip else R.style.RaidRTooltip_DarkOverlay)
     .overlay(true)
     .create()
 
-fun Context.showTooltipAtTop(content: String, anchor: View) =
-    createTooltip(content, anchor)
+fun View.showTooltipAtTop(tooltip: Tooltip) = tooltip.show(this, Tooltip.Gravity.TOP, true)
+fun Context.showTooltipAtTop(content: String, anchor: View, withLightOverlay: Boolean = true) =
+    createTooltip(content, anchor, withLightOverlay)
         .show(anchor, Tooltip.Gravity.TOP, true)

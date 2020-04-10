@@ -40,6 +40,9 @@ data class PlayerCharacter(
     @field:Json(name = "profile_url")
     var profileUrl: String = String.empty,
 
+    @field:Json(name = "thumbnail_url")
+    var profileImageUrl: String = String.empty,
+
     @field:Json(name = "raid_progression")
     var raidProgression: Map<String, RaidProgression> = mapOf(),
 

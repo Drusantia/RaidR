@@ -7,8 +7,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
-import kotlinx.android.synthetic.main.fragment_search.*
-import kotlinx.android.synthetic.main.partial_search_character.view.*
 import kotlinx.coroutines.*
 import net.drusantia.raidr.R
 import net.drusantia.raidr.data.LiveEvent
@@ -128,7 +126,7 @@ class SearchFragment : Fragment() {
             name = model.name)
         viewModel.loadCharacter(requestModel)
         activity?.let {
-            CharacterFragment().loadTo(R.id.container, it.supportFragmentManager, FragmentHelper.BackStackBehaviour.Add)
+            CharacterRioDetailsFragment().loadTo(R.id.container, it.supportFragmentManager, FragmentHelper.BackStackBehaviour.Add)
         }
     }
 }

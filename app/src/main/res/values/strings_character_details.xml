@@ -2,4 +2,6 @@
 <resources>
     <string name="character_detail_cleared_title">Cleared in:</string>
     <string name="character_detail_rio_title">Current score:</string>
+    <string name="character_detail_item_level_title">Item level:</string>
+    <string name="character_details_profile_image_description">Profile image of the character</string>
 </resources>

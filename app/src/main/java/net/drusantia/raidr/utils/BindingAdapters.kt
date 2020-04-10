@@ -10,9 +10,11 @@ import android.widget.*
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import net.drusantia.raidr.R
 import net.drusantia.raidr.data.model.character.*
-import net.drusantia.raidr.utils.extensions.*
+import net.drusantia.raidr.utils.extensions.showTooltipAtTop
 import java.text.ParseException
 import java.util.concurrent.TimeUnit
 
@@ -94,3 +96,11 @@ fun TextView.characterDescription(character: PlayerCharacter?) {
         text = "$activeSpecName $race $className of the $factionName"
     }
 }
+
+@BindingAdapter("imageUrl")
+fun ImageView.imageUrl(imageUrl: String?) = Glide.with(context)
+    .load(imageUrl)
+    .apply(RequestOptions()
+        .placeholder(R.drawable.wow_logo)
+        .optionalCenterCrop())
+    .into(this)

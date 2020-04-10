@@ -2,11 +2,10 @@
 
 package net.drusantia.raidr.utils.extensions
 
-import android.content.Context
+import android.content.*
 import android.content.res.Resources
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import android.net.Uri
+import androidx.fragment.app.*
 import net.drusantia.raidr.R
 import retrofit2.HttpException
 import kotlin.reflect.full.staticProperties
@@ -28,6 +27,9 @@ fun Context.showHttpErrorToast(throwable: Throwable) {
         }
     }
 }
+
+fun String.openUrlInBrowser(fragment: Fragment) = fragment.activity?.let { openUrlInBrowser(it) }
+fun String.openUrlInBrowser(activity: FragmentActivity) = activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(this)))
 
 private fun resolveString(resources: Resources, resId: Int): String {
     val originalString = resources.getString(resId)

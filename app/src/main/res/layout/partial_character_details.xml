@@ -16,68 +16,113 @@
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Headline4"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/characterPortrait"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                app:imageUrl="@{character.profileImageUrl}"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/basicInfoContainer"
+                android:contentDescription="@string/character_details_profile_image_description"
+                tools:src="@drawable/wow_logo" />
+
+            <LinearLayout
+                android:id="@+id/basicInfoContainer"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{character.name}"
-                tools:text="Fenrohas" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/characterPortrait"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/characterName"
+                    style="@style/TextAppearance.MaterialComponents.Headline4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@{character.name}"
+                    tools:text="Fenrohas" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@{character.realm + `-` + character.region.name()}"
+                    tools:text="Ragnaros-EU" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    app:characterDescription="@{character}"
+                    tools:text="Havoc Blood Elf Demon Hunter of the horde" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/tableGuide"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".5" />
 
             <TextView
+                android:id="@+id/Title1"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{character.realm + `-` + character.region.name()}"
-                tools:text="Ragnaros-EU" />
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/character_detail_rio_title"
+                app:layout_constraintEnd_toStartOf="@+id/tableGuide"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/basicInfoContainer" />
 
             <TextView
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
+                android:id="@+id/Data1"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:characterDescription="@{character}"
-                tools:text="Havoc Blood Elf Demon Hunter of the horde" />
+                android:layout_marginStart="8dp"
+                android:gravity="end"
+                android:text="@{character.currentScore}"
+                app:layout_constraintBottom_toBottomOf="@+id/Title1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tableGuide" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/Title2"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/character_detail_item_level_title"
+                app:layout_constraintEnd_toStartOf="@+id/tableGuide"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Title1" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/tableGuide"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent=".5" />
-
-                <TextView
-                    android:id="@+id/Title1"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/character_detail_rio_title"
-                    app:layout_constraintEnd_toStartOf="@+id/tableGuide"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/Data1"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:gravity="end"
-                    android:text="@{character.currentScore}"
-                    app:layout_constraintBottom_toBottomOf="@+id/Title1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tableGuide" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+            <TextView
+                android:id="@+id/Data2"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="end"
+                android:text="@{String.valueOf(character.gear.itemLevelEquipped)}"
+                app:layout_constraintBottom_toBottomOf="@+id/Title2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tableGuide" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
