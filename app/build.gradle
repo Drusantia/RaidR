@@ -61,6 +61,7 @@ dependencies {
     implementation "androidx.cardview:cardview:$cardVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "com.github.sephiroth74:android-target-tooltip:v$tooltipVersion"
     
     // Networking
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"

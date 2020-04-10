@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import net.drusantia.raidr.R
 import net.drusantia.raidr.data.model.character.*
-import net.drusantia.raidr.utils.extensions.px2dp
+import net.drusantia.raidr.utils.extensions.*
 import java.text.ParseException
 import java.util.concurrent.TimeUnit
 
@@ -60,9 +60,11 @@ fun LinearLayout.addAffixImages(affixes: List<Affix>) {
             val drawable = ContextCompat.getDrawable(context, affix.getDrawableId(context))
             setImageDrawable(drawable)
             val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            lp.setMargins(left, top, if (index == affixes.size - 1) right else 4.px2dp(context), bottom)
+            lp.setMargins(left, top, if (index == affixes.size - 1) right else 4, bottom)
             layoutParams = lp
-            setOnClickListener { Toast.makeText(context, "${affix.name}: ${affix.description}", Toast.LENGTH_LONG).show() }
+            setOnClickListener {
+                context.showTooltipAtTop("<b>${affix.name}</b><br/>${affix.description}", this)
+            }
         }
         addView(iv)
     }

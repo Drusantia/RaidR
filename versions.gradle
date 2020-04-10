@@ -37,4 +37,5 @@ ext {
     glideVersion = "4.9.0"
     stethoVersion = "1.5.1"
     storeVersion = "4.0.0-alpha02"
+    tooltipVersion = "2.0.4"
 }
