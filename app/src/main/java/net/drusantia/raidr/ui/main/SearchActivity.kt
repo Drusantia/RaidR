@@ -16,15 +16,13 @@ class SearchActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        init()
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_single_container)
+        if (savedInstanceState == null) {
+            init()
+        }
     }
 
     private fun init() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_single_container)
-        SearchFragment().loadTo(
-            R.id.container,
-            supportFragmentManager,
-            FragmentHelper.BackStackBehaviour.DoNotAdd,
-            SearchFragment::class.java.simpleName)
+        SearchFragment().loadTo(supportFragmentManager, backStackBehaviour = FragmentHelper.BackStackBehaviour.DoNotAdd)
     }
 }

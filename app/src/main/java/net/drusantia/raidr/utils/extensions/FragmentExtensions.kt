@@ -3,16 +3,16 @@
 package net.drusantia.raidr.utils.extensions
 
 import androidx.fragment.app.*
+import net.drusantia.raidr.R
 
 object FragmentHelper {
     enum class BackStackBehaviour { Add, DoNotAdd }
-
     val DEFAULT_ADD_TO_BACK_STACK = BackStackBehaviour.Add
 }
 
 fun <T : Fragment> T.loadTo(
-    containerId: Int,
     fragmentManager: FragmentManager,
+    containerId: Int = R.id.container,
     backStackBehaviour: FragmentHelper.BackStackBehaviour = FragmentHelper.DEFAULT_ADD_TO_BACK_STACK,
     tagName: String? = this::class.java.simpleName
 ) = fragmentManager

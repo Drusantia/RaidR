@@ -116,17 +116,13 @@ class SearchFragment : Fragment() {
 
     private fun onItemClicked(model: SearchResult) {
         if (model.type == "guild") {
-            Toast.makeText(activity, "Guilds are coming soon", Toast.LENGTH_LONG).show()
+            activity?.coloredToast("Guilds are coming soon", android.R.color.black, android.R.color.white)
             return
         }
 
-        val requestModel = CharacterRequest(
-            region = model.data?.region?.shortName,
-            realm = model.data?.realm?.name,
-            name = model.name)
-        viewModel.loadCharacter(requestModel)
+        viewModel.loadCharacter(model)
         activity?.let {
-            CharacterRioDetailsFragment().loadTo(R.id.container, it.supportFragmentManager, FragmentHelper.BackStackBehaviour.Add)
+            CharacterRioDetailsFragment().loadTo(it.supportFragmentManager)
         }
     }
 }

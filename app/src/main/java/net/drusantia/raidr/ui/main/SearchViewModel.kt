@@ -36,10 +36,16 @@ class SearchViewModel : ViewModel(), KoinComponent {
     }
 
     @ExperimentalCoroutinesApi
-    fun loadCharacter(requestModel: CharacterRequest) = viewModelScope.launch {
-        characterRepository.getCharacterStream(requestModel, StoreResult(
-            onLoading = { Timber.i("Loading"); character.postValue(null) },
-            onError = { Timber.e("Error, $it"); error.postValue(LiveEvent(it)) },
-            onFinished = { Timber.i("Loaded: $it"); character.postValue(it) }))
+    fun loadCharacter(model: SearchResult) {
+        val requestModel = CharacterRequest(
+            region = model.data?.region?.shortName,
+            realm = model.data?.realm?.name,
+            name = model.name)
+        viewModelScope.launch {
+            characterRepository.getCharacterStream(requestModel, StoreResult(
+                onLoading = { Timber.i("Loading"); character.postValue(null) },
+                onError = { Timber.e("Error, ${it.message}"); error.postValue(LiveEvent(it)) },
+                onFinished = { Timber.i("Loaded: ${it.name}"); character.postValue(it) }))
+        }
     }
 }
