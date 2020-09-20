@@ -7,6 +7,7 @@ import net.drusantia.raidr.R
 import net.drusantia.raidr.databinding.ActivitySingleContainerBinding
 import net.drusantia.raidr.ui.base.BaseActivity
 import net.drusantia.raidr.utils.extensions.*
+import net.drusantia.raidr.utils.extensions.FragmentHelper.BackStackBehaviour
 
 @FlowPreview
 @InternalCoroutinesApi
@@ -23,6 +24,16 @@ class SearchActivity : BaseActivity() {
     }
 
     private fun init() {
-        SearchFragment().loadTo(supportFragmentManager, backStackBehaviour = FragmentHelper.BackStackBehaviour.DoNotAdd)
+//        onPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, onDeniedAction = {
+//            coloredToast("Permission denied", android.R.color.holo_red_dark, android.R.color.white, false)
+//        }) {
+//            coloredToast("Permission granted.", android.R.color.holo_green_dark, android.R.color.white, false)
+//        }
+//
+//        onWriteStoragePermission {
+//            coloredToast("Permission granted.", android.R.color.holo_green_dark, android.R.color.white, false)
+//        }
+
+        SearchFragment().loadTo(supportFragmentManager, backStackBehaviour = BackStackBehaviour.DoNotAdd)
     }
 }
